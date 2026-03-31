@@ -1,9 +1,9 @@
-let DataUri = require("datauri/parser");
-let path = require("path");
+import DataUri from "datauri/parser.js";
+import path from "path";
 
 let dataURIChild = new DataUri();
 
-module.exports = (originalName, buffer) => {
+export default (originalName, buffer) => {
   const extension = path.extname(originalName);
   return dataURIChild.format(extension, buffer).content;
 };

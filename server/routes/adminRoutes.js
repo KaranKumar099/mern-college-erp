@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const passport = require("passport");
+import passport from "passport";
 
-const {
+import {
   adminLogin,
   addFaculty,
   addStudent,
@@ -14,7 +14,7 @@ const {
   getFaculty,
   getStudents,
   getSubjects,
-} = require("../controllers/adminController");
+} from "../controllers/adminController.js";
 
 router.post("/login", adminLogin);
 router.post("/addAdmin", addAdmin);
@@ -64,4 +64,4 @@ router.post(
   getSubjects
 );
 
-module.exports = router;
+export default router;

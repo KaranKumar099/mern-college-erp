@@ -1,24 +1,24 @@
-const bcrypt = require("bcryptjs");
-const gravatar = require("gravatar");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import gravatar from "gravatar";
+import jwt from "jsonwebtoken";
 
 //Validation
-const validateAdminRegisterInput = require("../validation/adminRegister");
-const validateFacultyRegisterInput = require("../validation/facultyRegister");
-const validateStudentRegisterInput = require("../validation/studentRegister");
-const validateAdminLoginInput = require("../validation/adminLogin");
-const validateSubjectRegisterInput = require("../validation/subjectRegister");
+import validateAdminRegisterInput from "../validation/adminRegister.js";
+import validateFacultyRegisterInput from "../validation/facultyRegister.js";
+import validateStudentRegisterInput from "../validation/studentRegister.js";
+import validateAdminLoginInput from "../validation/adminLogin.js";
+import validateSubjectRegisterInput from "../validation/subjectRegister.js";
 
 //Models
-const Subject = require("../models/Subject");
-const Student = require("../models/Student");
-const Faculty = require("../models/Faculty");
-const Admin = require("../models/Admin");
+import Subject from "../models/Subject.js";
+import Student from "../models/Student.js";
+import Faculty from "../models/Faculty.js";
+import Admin from "../models/Admin.js";
 
 //Config
-const keys = require("../config/key");
+import keys from "../config/key.js";
 
-exports.addAdmin = async (req, res, next) => {
+export const addAdmin = async (req, res, next) => {
   try {
     const { errors, isValid } = validateAdminRegisterInput(req.body);
 
@@ -101,7 +101,7 @@ exports.addAdmin = async (req, res, next) => {
   }
 };
 
-exports.adminLogin = async (req, res, next) => {
+export const adminLogin = async (req, res, next) => {
   try {
     const { errors, isValid } = validateAdminLoginInput(req.body);
     if (!isValid) {
@@ -144,7 +144,7 @@ exports.adminLogin = async (req, res, next) => {
   }
 };
 
-exports.addStudent = async (req, res, next) => {
+export const addStudent = async (req, res, next) => {
   try {
     const { errors, isValid } = validateStudentRegisterInput(req.body);
 
@@ -235,7 +235,7 @@ exports.addStudent = async (req, res, next) => {
   }
 };
 
-exports.addFaculty = async (req, res, next) => {
+export const addFaculty = async (req, res, next) => {
   try {
     const { errors, isValid } = validateFacultyRegisterInput(req.body);
     //Validation
@@ -312,7 +312,7 @@ exports.addFaculty = async (req, res, next) => {
   }
 };
 
-exports.addSubject = async (req, res, next) => {
+export const addSubject = async (req, res, next) => {
   try {
     const { errors, isValid } = validateSubjectRegisterInput(req.body);
     if (!isValid) {
@@ -353,7 +353,7 @@ exports.addSubject = async (req, res, next) => {
   }
 };
 
-exports.getAllStudents = async (req, res, next) => {
+export const getAllStudents = async (req, res, next) => {
   try {
     const students = await Student.find();
     if (students.length === 0) {
@@ -368,7 +368,7 @@ exports.getAllStudents = async (req, res, next) => {
   }
 };
 
-exports.getAllFaculty = async (req, res, next) => {
+export const getAllFaculty = async (req, res, next) => {
   try {
     const faculties = await Faculty.find({});
     if (faculties.length === 0) {
@@ -382,7 +382,7 @@ exports.getAllFaculty = async (req, res, next) => {
   }
 };
 
-exports.getAllSubjects = async (req, res, next) => {
+export const getAllSubjects = async (req, res, next) => {
   try {
     const allSubjects = await Subject.find({});
     if (!allSubjects) {
@@ -398,7 +398,7 @@ exports.getAllSubjects = async (req, res, next) => {
   }
 };
 
-exports.getStudents = async (req, res, next) => {
+export const getStudents = async (req, res, next) => {
   try {
     const { department, year } = req.body;
     const allStudents = await Student.find({ department, year });
@@ -408,7 +408,7 @@ exports.getStudents = async (req, res, next) => {
   }
 };
 
-exports.getFaculty = async (req, res, next) => {
+export const getFaculty = async (req, res, next) => {
   try {
     const { department } = req.body;
     const allFaculties = await Faculty.find({ department });
@@ -418,7 +418,7 @@ exports.getFaculty = async (req, res, next) => {
   }
 };
 
-exports.getSubjects = async (req, res, next) => {
+export const getSubjects = async (req, res, next) => {
   try {
     const { department, year } = req.body;
     const allSubjects = await Subject.find({ department, year });

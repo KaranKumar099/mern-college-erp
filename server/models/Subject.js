@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const subjectSchema = new Schema({
@@ -29,5 +29,4 @@ const subjectSchema = new Schema({
   },
 });
 
-module.exports =
-  mongoose.models.subject || mongoose.model("subject", subjectSchema);
+export default mongoose.models.subject || mongoose.model("subject", subjectSchema);

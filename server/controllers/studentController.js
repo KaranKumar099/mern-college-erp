@@ -1,29 +1,29 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //utils
-const keys = require("../config/key");
-const sendEmail = require("../utils/nodemailer");
+import keys from "../config/key.js";
+import sendEmail from "../utils/nodemailer.js";
 
 //Models
-const Student = require("../models/Student");
-const Subject = require("../models/Subject");
-const Attendance = require("../models/Attendance");
-const Message = require("../models/Message");
-const Mark = require("../models/Marks");
+import Student from "../models/Student.js";
+import Subject from "../models/Subject.js";
+import Attendance from "../models/Attendance.js";
+import Message from "../models/Message.js";
+import Mark from "../models/Marks.js";
 
 //File Handler
-const bufferConversion = require("../utils/bufferConversion");
-const cloudinary = require("../utils/cloudinary");
+import bufferConversion from "../utils/bufferConversion.js";
+import cloudinary from "../utils/cloudinary.js";
 
 //Validation
-const validateStudentLoginInput = require("../validation/studentLogin");
-const validateStudentUpdatePassword = require("../validation/studentUpdatePassword");
-const validateForgotPassword = require("../validation/forgotPassword");
-const validateOTP = require("../validation/otpValidation");
-const { markAttendance } = require("./facultyController");
+import validateStudentLoginInput from "../validation/studentLogin.js";
+import validateStudentUpdatePassword from "../validation/studentUpdatePassword.js";
+import validateForgotPassword from "../validation/forgotPassword.js";
+import validateOTP from "../validation/otpValidation.js";
+import { markAttendance } from "./facultyController.js";
 
-exports.studentLogin = async (req, res, next) => {
+export const studentLogin = async (req, res, next) => {
   const { errors, isValid } = validateStudentLoginInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -52,7 +52,7 @@ exports.studentLogin = async (req, res, next) => {
   });
 };
 
-exports.checkAttendance = async (req, res, next) => {
+export const checkAttendance = async (req, res, next) => {
   try {
     // console.log(req.user);
     const studentId = req.user._id;
@@ -83,7 +83,7 @@ exports.checkAttendance = async (req, res, next) => {
   }
 };
 
-exports.getAllStudents = async (req, res, next) => {
+export const getAllStudents = async (req, res, next) => {
   try {
     const { department, year, section } = req.body;
     const students = await Student.find({ department, year, section });
@@ -97,7 +97,7 @@ exports.getAllStudents = async (req, res, next) => {
   }
 };
 
-exports.getStudentByName = async (req, res, next) => {
+export const getStudentByName = async (req, res, next) => {
   try {
     const { name } = req.body;
     const students = await Student.find({ name });
@@ -110,7 +110,7 @@ exports.getStudentByName = async (req, res, next) => {
   }
 };
 
-exports.getStudentByRegNum = async (req, res, next) => {
+export const getStudentByRegNum = async (req, res, next) => {
   try {
     const { registrationNumber } = req.body;
     console.log(req.body);
@@ -125,7 +125,7 @@ exports.getStudentByRegNum = async (req, res, next) => {
   }
 };
 
-exports.updatePassword = async (req, res, next) => {
+export const updatePassword = async (req, res, next) => {
   try {
     const { errors, isValid } = validateStudentUpdatePassword(req.body);
     if (!isValid) {
@@ -157,7 +157,7 @@ exports.updatePassword = async (req, res, next) => {
   }
 };
 
-exports.forgotPassword = async (req, res, next) => {
+export const forgotPassword = async (req, res, next) => {
   try {
     const { errors, isValid } = validateForgotPassword(req.body);
     if (!isValid) {
@@ -201,7 +201,7 @@ exports.forgotPassword = async (req, res, next) => {
   }
 };
 
-exports.postOTP = async (req, res, next) => {
+export const postOTP = async (req, res, next) => {
   try {
     const { errors, isValid } = validateOTP(req.body);
     if (!isValid) {
@@ -229,7 +229,7 @@ exports.postOTP = async (req, res, next) => {
   }
 };
 
-exports.postPrivateChat = async (req, res, next) => {
+export const postPrivateChat = async (req, res, next) => {
   try {
     const {
       senderName,
@@ -265,7 +265,7 @@ exports.postPrivateChat = async (req, res, next) => {
   }
 };
 
-exports.getPrivateChat = async (req, res, next) => {
+export const getPrivateChat = async (req, res, next) => {
   try {
     const { roomId } = req.params;
     const swap = (input, a, b) => {
@@ -288,7 +288,7 @@ exports.getPrivateChat = async (req, res, next) => {
   }
 };
 
-exports.getAllSubjects = async (req, res, next) => {
+export const getAllSubjects = async (req, res, next) => {
   try {
     const { department, year } = req.user;
     const subjects = await Subject.find({ department, year });
@@ -302,7 +302,7 @@ exports.getAllSubjects = async (req, res, next) => {
   }
 };
 
-exports.getAllMarks = async (req, res, next) => {
+export const getAllMarks = async (req, res, next) => {
   try {
     const { department, year, id } = req.user;
     const getMarks = await Mark.find({ department, student: id }).populate(
@@ -333,7 +333,7 @@ exports.getAllMarks = async (req, res, next) => {
   }
 };
 
-exports.differentChats = async (req, res, next) => {
+export const differentChats = async (req, res, next) => {
   try {
     const { receiverName } = req.params;
     const newChatsTemp = await Message.find({ senderName: receiverName });
@@ -384,7 +384,7 @@ exports.differentChats = async (req, res, next) => {
   }
 };
 
-exports.previousChats = async (req, res, next) => {
+export const previousChats = async (req, res, next) => {
   try {
     const { senderName } = req.params;
     const newChats = await Message.find({ senderName });
@@ -409,7 +409,7 @@ exports.previousChats = async (req, res, next) => {
   }
 };
 
-exports.updateProfile = async (req, res, next) => {
+export const updateProfile = async (req, res, next) => {
   try {
     const {
       email,

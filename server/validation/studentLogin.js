@@ -1,5 +1,5 @@
-const Validator = require("validator");
-const isEmpty = require("./is-empty");
+import Validator from "validator";
+import isEmpty from "./is-empty.js";
 
 const validateStudentLoginInput = (data) => {
   let errors = {};
@@ -27,4 +27,4 @@ const validateStudentLoginInput = (data) => {
   };
 };
 
-module.exports = validateStudentLoginInput;
+export default validateStudentLoginInput;

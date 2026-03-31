@@ -1,16 +1,14 @@
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const Faculty = require("../models/Faculty");
-const Student = require("../models/student");
-const Admin = require("../models/admin");
-
-const keys = require("./key");
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+import Faculty from "../models/Faculty.js";
+import Student from "../models/Student.js";
+import Admin from "../models/Admin.js";
+import keys from "./key.js";
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
 
-module.exports = (passport) => {
+export default (passport) => {
   passport.use(
     new JwtStrategy(opts, async (jwt_payload, done) => {
       const faculty = await Student.findById(jwt_payload.id);

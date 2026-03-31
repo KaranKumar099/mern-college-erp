@@ -1,5 +1,5 @@
-const Validator = require("validator");
-const isEmpty = require("./is-empty");
+import Validator from "validator";
+import isEmpty from "./is-empty.js";
 
 const validateOtp = (data) => {
   let errors = {};
@@ -35,4 +35,4 @@ const validateOtp = (data) => {
   };
 };
 
-module.exports = validateOtp;
+export default validateOtp;

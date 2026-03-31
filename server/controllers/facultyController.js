@@ -1,29 +1,29 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //Utils
-const sendEmail = require("../utils/nodemailer");
-const bufferConversion = require("../utils/bufferConversion");
-const cloudinary = require("../utils/cloudinary");
+import sendEmail from "../utils/nodemailer.js";
+import bufferConversion from "../utils/bufferConversion.js";
+import cloudinary from "../utils/cloudinary.js";
 
-const keys = require("../config/key");
+import keys from "../config/key.js";
 
 //Validation
-const validateFacultyLoginInput = require("../validation/facultyLogin");
-const validateFetchStudentsInput = require("../validation/facultyFetchStudent");
-const validateFacultyUpdatePassword = require("../validation/facultyUpdatePassword");
-const validateForgotPassword = require("../validation/forgotPassword");
-const validateOTP = require("../validation/otpValidation");
-const validateFacultyUploadMarks = require("../validation/facultyUploadMarks");
+import validateFacultyLoginInput from "../validation/facultyLogin.js";
+import validateFetchStudentsInput from "../validation/facultyFetchStudent.js";
+import validateFacultyUpdatePassword from "../validation/facultyUpdatePassword.js";
+import validateForgotPassword from "../validation/forgotPassword.js";
+import validateOTP from "../validation/otpValidation.js";
+import validateFacultyUploadMarks from "../validation/facultyUploadMarks.js";
 
 //Models
-const Student = require("../models/Student");
-const Subject = require("../models/Subject");
-const Faculty = require("../models/Faculty");
-const Attendance = require("../models/Attendance");
-const Mark = require("../models/Marks");
+import Student from "../models/Student.js";
+import Subject from "../models/Subject.js";
+import Faculty from "../models/Faculty.js";
+import Attendance from "../models/Attendance.js";
+import Mark from "../models/Marks.js";
 
-exports.facultyLogin = async (req, res, next) => {
+export const facultyLogin = async (req, res, next) => {
   try {
     const { errors, isValid } = validateFacultyLoginInput(req.body);
     //console.log(req.body);
@@ -60,7 +60,7 @@ exports.facultyLogin = async (req, res, next) => {
   }
 };
 
-exports.fetchStudents = async (req, res, next) => {
+export const fetchStudents = async (req, res, next) => {
   try {
     const { errors, isValid } = validateFetchStudentsInput(req.body);
     if (!isValid) {
@@ -106,7 +106,7 @@ exports.fetchStudents = async (req, res, next) => {
   }
 };
 
-exports.markAttendance = async (req, res, next) => {
+export const markAttendance = async (req, res, next) => {
   try {
     const { selectedStudents, subjectCode, department, year, section } =
       req.body;
@@ -170,7 +170,7 @@ exports.markAttendance = async (req, res, next) => {
   }
 };
 
-exports.uploadMarks = async (req, res, next) => {
+export const uploadMarks = async (req, res, next) => {
   try {
     const { errors, isValid } = validateFacultyUploadMarks(req.body);
 
@@ -215,7 +215,7 @@ exports.uploadMarks = async (req, res, next) => {
   }
 };
 
-exports.getAllSubjects = async (req, res, next) => {
+export const getAllSubjects = async (req, res, next) => {
   try {
     const allSubjects = await Subject.find({});
     if (!allSubjects) {
@@ -231,7 +231,7 @@ exports.getAllSubjects = async (req, res, next) => {
   }
 };
 
-exports.updatePassword = async (req, res, next) => {
+export const updatePassword = async (req, res, next) => {
   try {
     const { errors, isValid } = validateFacultyUpdatePassword(req.body);
     if (!isValid) {
@@ -259,7 +259,7 @@ exports.updatePassword = async (req, res, next) => {
   }
 };
 
-exports.forgotPassword = async (req, res, next) => {
+export const forgotPassword = async (req, res, next) => {
   try {
     const { errors, isValid } = validateForgotPassword(req.body);
     if (!isValid) {
@@ -296,7 +296,7 @@ exports.forgotPassword = async (req, res, next) => {
   }
 };
 
-exports.postOTP = async (req, res, next) => {
+export const postOTP = async (req, res, next) => {
   try {
     const { errors, isValid } = validateOTP(req.body);
     if (!isValid) {
@@ -327,7 +327,7 @@ exports.postOTP = async (req, res, next) => {
   }
 };
 
-exports.updateProfile = async (req, res, next) => {
+export const updateProfile = async (req, res, next) => {
   try {
     const { email, facultyMobileNumber, registrationNumber } = req.body;
 

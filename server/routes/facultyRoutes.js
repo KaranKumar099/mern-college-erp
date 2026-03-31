@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const passport = require("passport");
-const upload = require("../utils/multer");
+import passport from "passport";
+import upload from "../utils/multer.js";
 
-const {
+import {
   facultyLogin,
   getAllSubjects,
   updateProfile,
@@ -13,7 +13,7 @@ const {
   forgotPassword,
   postOTP,
   uploadMarks,
-} = require("../controllers/facultyController");
+} from "../controllers/facultyController.js";
 
 //Auth and Profile
 router.post("/login", facultyLogin);
@@ -52,4 +52,4 @@ router.post(
   uploadMarks
 );
 
-module.exports = router;
+export default router;

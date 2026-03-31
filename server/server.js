@@ -1,23 +1,27 @@
-const express = require("express");
-const http = require("http");
-const socket = require("socket.io");
-const mongoose = require("mongoose");
-const passport = require("passport");
-const fileUpload = require("express-fileupload");
-const cors = require("cors");
-const dotenv = require("dotenv");
-dotenv.config();
+import "dotenv/config";
+import express from "express";
+import http from "http";
+import { Server } from "socket.io";
+import mongoose from "mongoose";
+import passport from "passport";
+import fileUpload from "express-fileupload";
+import cors from "cors";
+
+import passportConfig from "./config/passport.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import facultyRoutes from "./routes/facultyRoutes.js";
+import studentRoutes from "./routes/studentRoutes.js";
 
 //Setup Middlewares
 const app = express();
 let server = http.createServer(app);
-let io = socket(server);
+let io = new Server(server);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(fileUpload());
 app.use(cors());
 app.use(passport.initialize());
-require("./config/passport")(passport);
+passportConfig(passport);
 
 //Socket IO setup
 io.on("connection", (socket) => {
@@ -39,10 +43,6 @@ io.on("connection", (socket) => {
 let _response = {};
 
 //Routes
-const adminRoutes = require("./routes/adminRoutes");
-const facultyRoutes = require("./routes/facultyRoutes");
-const studentRoutes = require("./routes/studentRoutes");
-
 app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/student", studentRoutes);

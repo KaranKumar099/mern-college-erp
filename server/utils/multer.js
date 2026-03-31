@@ -1,4 +1,4 @@
-let multer = require("multer");
+import multer from "multer";
 
 let upload = multer({
   storage: multer.memoryStorage(),
@@ -19,4 +19,4 @@ let upload = multer({
   },
 });
 
-module.exports = upload;
+export default upload;

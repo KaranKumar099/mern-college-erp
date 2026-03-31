@@ -1,14 +1,14 @@
-import React,{useState,useEffect} from 'react'
-import {useSelector,useDispatch} from 'react-redux'
-import {DataGrid} from '@material-ui/data-grid'
-import {useNavigate} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { DataGrid } from '@material-ui/data-grid'
+import { useNavigate } from 'react-router-dom'
 
 import styled from 'styled-components'
 import AdminNavbar from '../../components/AdminNavbar'
 import Loader from '../../components/Loader'
 
-import {Person,CalendarToday} from '@material-ui/icons'
-import {adminGetAllStudent} from '../../redux/actions/adminAction'
+import { CalendarToday, Apartment } from '@material-ui/icons'
+import { adminGetAllStudent } from '../../redux/actions/adminAction'
 
 
 const Container = styled.div` 
@@ -28,23 +28,36 @@ color:#0077b6;
 transition: all 0.5s;
 margin: 2rem;
 text-align: center;
-border-bottom:1px solid #0077b6;
+width: 100%;
+
+@media screen and (max-width: 426px) {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
 `
 const Form = styled.form` 
-width:20rem;
+width: 100%;
 display: flex;
-flex-direction: column;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
 align-items: center;
 margin: auto;
-padding: 3vmax;
+padding: 1vmax;
 background-color: white;
+box-sizing: border-box;
 `
 
 const FormItem = styled.div` 
 display: flex;
-width: 100%;
+width: 20rem;
 align-items: center;
-margin: 2rem;
+margin: 1rem;
+
+@media screen and (max-width: 426px) {
+    width: 90%;
+    margin: 0.5rem 0;
+}
 >select{
     padding:1vmax 4vmax;
     padding-right:1vmax;
@@ -70,11 +83,16 @@ const Button = styled.button`
     font: 400 1vmax;
     color: white;
     text-decoration: none;
-    padding: 0.5vmax;
-    width: 30%;
-    margin: 4vmax;
+    padding: 1vmax;
+    width: 10rem;
+    margin: 1rem;
     text-align: center;
     cursor:pointer;
+
+    @media screen and (max-width: 426px) {
+        width: 80%;
+        font-size: 1rem;
+    }
 `
 
 
@@ -97,15 +115,15 @@ const AdminGetStudents = () => {
     const formHandler = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        dispatch(adminGetAllStudent({department,year}));
+        dispatch(adminGetAllStudent({ department, year }));
     }
 
     const columns = [
-        {field:"id",headerName:"No.",flex:0.3},
-        {field:"code",headerName:"Registration Number",flex:0.5},
-        {field:"name",headerName:"Name",flex:0.5},
-        {field:"email",headerName:"Email",flex:0.3},
-        {field:"section",headerName:"Section",flex:0.4}
+        { field: "id", headerName: "No.", flex: 0.3 },
+        { field: "code", headerName: "Registration Number", flex: 0.5 },
+        { field: "name", headerName: "Name", flex: 0.5 },
+        { field: "email", headerName: "Email", flex: 0.3 },
+        { field: "section", headerName: "Section", flex: 0.4 }
     ]
 
     /*
@@ -119,72 +137,72 @@ const AdminGetStudents = () => {
     */
 
     const rows = [];
-    admin.allStudent.forEach((item,index) => {
+    admin.allStudent.forEach((item, index) => {
         rows.push({
-            id:index + 1,
-            code:item.registrationNumber,
-            name:item.name,
-            email:item.email,
-            section:item.section
+            id: index + 1,
+            code: item.registrationNumber,
+            name: item.name,
+            email: item.email,
+            section: item.section
         })
     })
 
 
-  return (
-    <>
-    {
-        admin.isAuthenticated?(
-            <>
-            <AdminNavbar/>
-    <Container>
-        <Form onSubmit={formHandler}>
-            <Heading>Search Students</Heading>
-            <FormItem>
-                <Person/>
-                <select onChange = {(e) => setDepartment(e.target.value)}>
-                    <option>Department</option>
-                    <option value="C.S.E">C.S.E</option>
-                    <option value="E.C.E">E.C.E</option>
-                    <option value="I.T">I.T</option>
-                    <option value="Civil">Civil</option>
-                    <option value="Mechanical">Mechanical</option>
-                </select>
-            </FormItem>
-            <FormItem>
-                <CalendarToday/>
-                <select onChange = {(e) => setYear(e.target.value)}>
-                    <option>Year</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-            </FormItem>
-            <Button type="submit">
-                Search
-            </Button>
-        </Form>
-       {
-           isLoading?(
-               <Loader/>
-           ):(
-            <DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick autoHeight/>
-           )
-       }
-               
-    
-       
-    </Container>
-            </>
-        ):(
-            navigate('/admin/login')
-        )
-    }
-   
-            
+    return (
+        <>
+            {
+                admin.isAuthenticated ? (
+                    <>
+                        <AdminNavbar />
+                        <Container>
+                            <Form onSubmit={formHandler}>
+                                <Heading>Search Students</Heading>
+                                <FormItem>
+                                    <Apartment />
+                                    <select onChange={(e) => setDepartment(e.target.value)}>
+                                        <option>Department</option>
+                                        <option value="C.S.E">C.S.E</option>
+                                        <option value="E.C.E">E.C.E</option>
+                                        <option value="I.T">I.T</option>
+                                        <option value="Civil">Civil</option>
+                                        <option value="Mechanical">Mechanical</option>
+                                    </select>
+                                </FormItem>
+                                <FormItem>
+                                    <CalendarToday />
+                                    <select onChange={(e) => setYear(e.target.value)}>
+                                        <option>Year</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </FormItem>
+                                <Button type="submit">
+                                    Search
+                                </Button>
+                            </Form>
+                            {
+                                isLoading ? (
+                                    <Loader />
+                                ) : (
+                                    <DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick autoHeight />
+                                )
+                            }
 
-    </>
-  )
+
+
+                        </Container>
+                    </>
+                ) : (
+                    navigate('/admin/login')
+                )
+            }
+
+
+
+        </>
+    )
 }
 
 export default AdminGetStudents

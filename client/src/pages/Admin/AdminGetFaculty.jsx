@@ -1,14 +1,14 @@
-import React,{useState,useEffect} from 'react'
-import {useSelector,useDispatch} from 'react-redux'
-import {useNavigate} from 'react-router-dom';
-import {adminGetAllFaculty} from '../../redux/actions/adminAction'
-import {DataGrid} from '@material-ui/data-grid'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { adminGetAllFaculty } from '../../redux/actions/adminAction'
+import { DataGrid } from '@material-ui/data-grid'
 
 import styled from 'styled-components'
 import AdminNavbar from '../../components/AdminNavbar'
 import Loader from '../../components/Loader'
 
-import {ImageSearch} from '@material-ui/icons'
+import { Apartment } from '@material-ui/icons'
 
 const Container = styled.div` 
 width:100%;
@@ -27,23 +27,36 @@ color:#0077b6;
 transition: all 0.5s;
 margin: 2rem;
 text-align: center;
-border-bottom:1px solid #0077b6;
+width: 100%;
+
+@media screen and (max-width: 426px) {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
 `
 const Form = styled.form` 
-width:20rem;
+width: 100%;
 display: flex;
-flex-direction: column;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
 align-items: center;
 margin: auto;
-padding: 3vmax;
+padding: 1vmax;
 background-color: white;
+box-sizing: border-box;
 `
 
 const FormItem = styled.div` 
 display: flex;
-width: 100%;
+width: 20rem;
 align-items: center;
-margin: 2rem;
+margin: 1rem;
+
+@media screen and (max-width: 426px) {
+    width: 90%;
+    margin: 0.5rem 0;
+}
 >select{
     padding:1vmax 4vmax;
     padding-right:1vmax;
@@ -68,11 +81,16 @@ const Button = styled.button`
     font: 400 1vmax;
     color: white;
     text-decoration: none;
-    padding: 0.5vmax;
-    width: 30%;
-    margin: 4vmax;
+    padding: 1vmax;
+    width: 10rem;
+    margin: 1rem;
     text-align: center;
     cursor:pointer;
+
+    @media screen and (max-width: 426px) {
+        width: 80%;
+        font-size: 1rem;
+    }
 `
 
 
@@ -94,15 +112,15 @@ const AdminGetFaculty = () => {
     const formHandler = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        dispatch(adminGetAllFaculty({department}));
+        dispatch(adminGetAllFaculty({ department }));
     }
 
     const columns = [
-        {field:"id",headerName:"No.",flex:0.3},
-        {field:"code",headerName:"Registration Number",flex:0.5},
-        {field:"name",headerName:"Name",flex:0.5},
-        {field:"email",headerName:"Email",flex:0.3},
-        {field:"designation",headerName:"Designation",flex:0.4}
+        { field: "id", headerName: "No.", flex: 0.3 },
+        { field: "code", headerName: "Registration Number", flex: 0.5 },
+        { field: "name", headerName: "Name", flex: 0.5 },
+        { field: "email", headerName: "Email", flex: 0.3 },
+        { field: "designation", headerName: "Designation", flex: 0.4 }
     ]
 
     /*
@@ -116,59 +134,59 @@ const AdminGetFaculty = () => {
     */
 
     const rows = [];
-    admin.allFaculty.forEach((item,index) => {
+    admin.allFaculty.forEach((item, index) => {
         rows.push({
-            id:index + 1,
-            code:item.registrationNumber,
-            name:item.name,
-            email:item.email,
-            designation:item.designation
+            id: index + 1,
+            code: item.registrationNumber,
+            name: item.name,
+            email: item.email,
+            designation: item.designation
         })
     })
 
 
-  return (
-      <>
-      {
-          admin.isAuthenticated?(
-              <>
-                  <AdminNavbar/>
-    <Container>
-        <Form onSubmit={formHandler}>
-            <Heading>Search Faculty</Heading>
-            <FormItem>
-                <ImageSearch/>
-                <select onChange = {(e) => setDepartment(e.target.value)}>
-                    <option>C.S.E</option>
-                    <option>E.C.E</option>
-                    <option>I.T</option>
-                    <option>Civil</option>
-                    <option>Mechanical</option>
-                </select>
-            </FormItem>
-            <Button type="submit">
-                Search
-            </Button>
-        </Form>
-        {
-            isLoading?(
-                <Loader/>
-            ):(
-<DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick autoHeight/>
-            )
-        }
-        
-    </Container>
-              </>
-          ):(
-              navigate('/admin/login')
-          )
-      }
-      </>
-    
+    return (
+        <>
+            {
+                admin.isAuthenticated ? (
+                    <>
+                        <AdminNavbar />
+                        <Container>
+                            <Form onSubmit={formHandler}>
+                                <Heading>Search Faculty</Heading>
+                                <FormItem>
+                                    <Apartment />
+                                    <select onChange={(e) => setDepartment(e.target.value)}>
+                                        <option>C.S.E</option>
+                                        <option>E.C.E</option>
+                                        <option>I.T</option>
+                                        <option>Civil</option>
+                                        <option>Mechanical</option>
+                                    </select>
+                                </FormItem>
+                                <Button type="submit">
+                                    Search
+                                </Button>
+                            </Form>
+                            {
+                                isLoading ? (
+                                    <Loader />
+                                ) : (
+                                    <DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick autoHeight />
+                                )
+                            }
 
-    
-  )
+                        </Container>
+                    </>
+                ) : (
+                    navigate('/admin/login')
+                )
+            }
+        </>
+
+
+
+    )
 }
 
 export default AdminGetFaculty

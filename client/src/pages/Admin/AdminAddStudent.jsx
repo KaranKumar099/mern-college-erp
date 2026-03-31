@@ -21,9 +21,15 @@ background-color:rgb(231,231,231);
 
 const ProfileBox = styled.div` 
 background-color:white;
-width:70vw;
+width:50vw;
 height:90vh;
 box-sizing:border-box;
+
+@media screen and (max-width: 426px) {
+    width: 90vw;
+    height: auto;
+    padding-bottom: 20px;
+}
 `
 
 const ProfileHeader = styled.h1` 
@@ -34,6 +40,11 @@ padding:1.3vmax;
 border-bottom:1px solid #0077b6;
 width:50%;
 margin:auto;
+
+@media screen and (max-width: 426px) {
+    font-size: 1.2rem;
+    width: 80%;
+}
 `
 
 const ProfileForm = styled.form` 
@@ -43,13 +54,17 @@ align-items:center;
 justify-content:space-evenly;
 margin: auto;
 padding: 2vmax;
-height: auto;
+height: 70%;
 width:70%;
 >div{
     display:flex;
     align-items:center;
     width:100%;
     margin-bottom:10px;
+}
+
+@media screen and (max-width: 426px) {
+    width: 90%;
 }
 `
 const ProfileName = styled.div` 

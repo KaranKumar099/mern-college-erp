@@ -8,70 +8,116 @@ import styled from 'styled-components'
 
 const Container = styled.div`
 display:flex;
-height:100vh;
-width:100vw;
-max-width:100%;
+width:100%;
+max-width: 100vw;
+box-sizing: border-box;
 background-color:white;
+overflow-x: hidden;
+
+@media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+}
 `
 
 const Header = styled.div` 
 display:flex;
-height:100vh;
-width:100vw;
-max-width:100%;
+flex: 1;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+padding: 2rem;
+
 >h1{
-    font:500 2.2vmax;
+    font-size: 2rem;
+    font-weight: 500;
     color:#0077b6;
-    transform:translateX(-10vmax) translateY(-2vmax)
+    margin-bottom: 2rem;
 }
 >img{
-    width:20vmax;
-    object-fit:contain;
+    width: 200px;
+    height: 200px;
+    object-fit:cover;
     border-radius:100%;
-    transition:all 0.5s;
+    margin-bottom: 1rem;
+    border: 4px solid #0077b6;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+>h3 {
+    margin: 0.5rem 0;
+    color: #333;
 }
 >a{
     border-radius: 10px;
     background-color: #0077b6;
-    font: 400 1vmax;
+    font-size: 1rem;
     color: white;
     text-decoration: none;
-    padding: 0.5vmax;
-    width: 30%;
-    margin: 4vmax;
+    padding: 0.8rem 2rem;
+    margin-top: 1.5rem;
     text-align: center;
-    transition: all 0.5s;
+    transition: all 0.3s;
+
+    &:hover {
+        background-color: #005f92;
+        transform: translateY(-2px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    height: auto;
+    padding: 3rem 1rem;
+    
+    >h1 {
+        font-size: 1.8rem;
+    }
+    >img {
+        width: 180px;
+        height: 180px;
+    }
 }
 `
 
 const ProfileInfo = styled.div` 
 display:flex;
-height:100vh;
-width:100vw;
-max-width:100%;
+flex: 1;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+padding: 2rem;
+
+@media screen and (max-width: 768px) {
+    height: auto;
+    padding: 2rem 1rem;
+}
 `
 
-const ProfileInfoItem = styled.div` 
-justify-content:space-evenly;
+const ProfileInfoItem = styled.div`
+display: flex;
+flex-direction: column;
+justify-content:center;
 align-items:center;
-padding:1.5vmax;
+padding: 1rem;
+width: 80%;
 box-sizing:border-box;
-border-bottom:0.5px solid #0077b6;
+border-bottom: 0.5px solid rgba(0, 119, 182, 0.2);
+
 >h4{
     color:#0077b6;
-    font:400 1.2vmax;
-    text-align:center;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
 };
 >p{
-    color:black;
-    font:400 1vmax;
-    margin:0.2vmax;
+    color: #555;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    text-align:center;
+}
+
+@media screen and (max-width: 426px) {
+    width: 100%;
 }
 `
 

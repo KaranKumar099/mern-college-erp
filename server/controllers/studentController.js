@@ -38,8 +38,10 @@ export const studentLogin = async (req, res, next) => {
   }
 
   const validPassword = await bcrypt.compare(password, student.password);
+  console.log(password);
+  console.log(student.password);
   if (!validPassword) {
-    errors.password = "Wrong password";
+    errors.password = `Wrong password`;
     return res.status(404).json(errors);
   }
 

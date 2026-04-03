@@ -9,30 +9,41 @@ import StudentNavbar from '../../components/StudentNavbar'
 import {studentUpdate,studentLogout} from '../../redux/actions/studentAction'
 
 const Container = styled.div`
-width:100vw;
+width:100%;
 height:100vh;
 max-width:100%;
 display:flex;
 justify-content:center;
 align-items: center;
 background-color:rgb(231,231,231);
+overflow-x: hidden;
 `
 
 const ProfileBox = styled.div` 
 background-color:white;
 width:25vw;
-height:70vh;
+height:85vh;
 box-sizing:border-box;
+
+@media screen and (max-width: 1024px) {
+    width: 60vw;
+}
+
+@media screen and (max-width: 426px) {
+    width: 95vw;
+    height: auto;
+    padding: 1rem 0;
+}
 `
 
 const ProfileHeader = styled.h1` 
 text-align:center;
 color:#0077b6;
-font:400 1.3vmax;
-padding:1.3vmax;
+font:400 1.3rem;
+padding:1rem;
 border-bottom:1px solid #0077b6;
-width:50%;
-margin:auto;
+width:max-content;
+margin: 1rem auto;
 `
 
 const ProfileForm = styled.form` 
@@ -41,68 +52,86 @@ flex-direction: column;
 align-items:center;
 justify-content:space-evenly;
 margin: auto;
-padding: 2vmax;
-height: 70%;
+padding: 1.5rem;
+box-sizing: border-box;
+
 >div{
     display:flex;
     align-items:center;
     width:100%;
+    margin-bottom: 1rem;
 }
 `
 const ProfileName = styled.div` 
+position: relative;
 >svg{
     position:absolute;
-    transform:translateX(1vmax);
-    font-size:1.6vmax;
+    transform:translateX(10px);
+    font-size:1.5rem;
+    color: rgba(0,0,0,0.6);
 }
 `
 const ProfileEmail = styled.div` 
+position: relative;
 >svg{
     position:absolute;
-    transform:translateX(1vmax);
-    font-size:1.6vmax;
+    transform:translateX(10px);
+    font-size:1.5rem;
+    color: rgba(0,0,0,0.6);
 }
 `
 const ProfilePhone = styled.div` 
+position: relative;
 >svg{
     position:absolute;
-    transform:translateX(1vmax);
-    font-size:1.6vmax;
+    transform:translateX(10px);
+    font-size:1.5rem;
+    color: rgba(0,0,0,0.6);
 }
 `
 
 const ProfileImage = styled.div` 
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
 >img{
-    width:3vmax;
+    width: 80px;
+    height: 80px;
     border-radius:100%;
-    margin:1vmax;
+    margin-bottom: 0.5rem;
+    object-fit: cover;
+    border: 2px solid #0077b6;
 }
 >input{
-    display:flex;
-    padding:0%;
+    font-size: 0.8rem;
 }
 `
 const ProfileInput = styled.input` 
-padding:1vmax 4vmax;
-padding-right:1vmax;
+padding: 12px 12px 12px 40px;
 width:100%;
 box-sizing:border-box;
 border:1px solid #0077b6;
 border-radius:4px;
-font:300 0.9vmax;
+font: 300 1rem;
 outline:none;
 `
 const ProfileButton = styled.button` 
 border:none;
 background-color: #0077b6;
 color:white;
-font:300 0.9vmax;
+font: 400 1rem;
 width: 100%;
-  padding: 0.8vmax;
+  padding: 12px;
   cursor: pointer;
   border-radius: 4px;
   outline: none;
   box-shadow:0 2px 5px rgba(0,0,0,0.219);
+  transition: all 0.3s;
+
+  &:hover {
+      background-color: #005f92;
+  }
 `
 const StudentUpdateProfile = () => {
     const student = useSelector((store) => store.student)

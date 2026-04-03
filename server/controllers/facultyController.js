@@ -316,7 +316,7 @@ export const postOTP = async (req, res, next) => {
     }
 
     let hashedPassword;
-    hashedPassword = await bcrypt.compare(newPassword, 10);
+    hashedPassword = await bcrypt.hash(newPassword, 10);
     faculty.password = hashedPassword;
     await faculty.save();
 

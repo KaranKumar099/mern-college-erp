@@ -12,12 +12,14 @@ import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div` 
 width:100%;
+max-width: 100vw;
 box-sizing:border-box;
 background-color: rgb(255, 255, 255);
 display:flex;
 flex-direction:column;
 border-left: 1px solid rgba(0, 0, 0, 0.158);
 height: 100vh;
+overflow-x: hidden;
 `
 const Heading = styled.h1` 
 font:400 2rem;
@@ -41,7 +43,6 @@ flex-direction: row;
 flex-wrap: wrap;
 justify-content: center;
 align-items: center;
-margin: auto;
 padding: 1vmax;
 background-color: white;
 box-sizing: border-box;
@@ -94,6 +95,51 @@ const Button = styled.button`
     }
 `
 
+const TableContainer = styled.div`
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    .custom-datagrid {
+        border: none;
+        font-family: 'Poppins', sans-serif;
+        
+        .MuiDataGrid-columnHeaderTitle {
+            font-weight: 600;
+            color: #0077b6;
+        }
+
+        .MuiDataGrid-cell {
+            color: #333;
+        }
+
+        .MuiDataGrid-row:hover {
+            background-color: #f0faff;
+        }
+    }
+
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #0077b6;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #005f92;
+    }
+`;
+
 
 
 const AdminGetSubjects = () => {
@@ -103,7 +149,6 @@ const AdminGetSubjects = () => {
 
     const [department, setDepartment] = useState('')
     const [year, setYear] = useState('')
-    const [error, setError] = useState({})
     const [isLoading, setIsLoading] = useState(false)
 
     const navigate = useNavigate();
@@ -123,10 +168,10 @@ const AdminGetSubjects = () => {
     }, [admin.allSubject])
 
     const columns = [
-        { field: "id", headerName: "Subject No.", flex: 0.2 },
-        { field: "code", headerName: "Subject Code", flex: 1 },
-        { field: "name", headerName: "Subject Name", flex: 1 },
-        { field: "total", headerName: "Total Lectures", flex: 0.3 }
+        { field: "id", headerName: "Subject No.", flex: 0.2, minWidth: 100 },
+        { field: "code", headerName: "Subject Code", flex: 0.5, minWidth: 150 },
+        { field: "name", headerName: "Subject Name", flex: 1, minWidth: 250 },
+        { field: "total", headerName: "Total Lectures", flex: 0.3, minWidth: 150 }
     ]
 
     /*
@@ -184,13 +229,25 @@ const AdminGetSubjects = () => {
                                     Search
                                 </Button>
                             </Form>
-                            {
-                                isLoading ? (
-                                    <Loader />
-                                ) : (
-                                    <DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick autoHeight />
-                                )
-                            }
+                            <TableContainer>
+                                {
+                                    isLoading ? (
+                                        <Loader />
+                                    ) : (
+                                        <div style={{ minWidth: '650px', width: '100%' }}>
+                                            <DataGrid
+                                                rows={rows}
+                                                columns={columns}
+                                                pageSize={10}
+                                                rowsPerPageOptions={[5, 10, 20]}
+                                                disableSelectionOnClick
+                                                autoHeight
+                                                className="custom-datagrid"
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </TableContainer>
 
                         </Container>
                     </>

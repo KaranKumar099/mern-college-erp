@@ -25,7 +25,64 @@ color:#0077b6;
 transition: all 0.5s;
 margin: 2rem;
 text-align: center;
+
+@media screen and (max-width: 426px) {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
 `
+
+const TableContainer = styled.div`
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    .custom-datagrid {
+        border: none;
+        font-family: 'Poppins', sans-serif;
+        
+        .MuiDataGrid-columnHeaderTitle {
+            font-weight: 600;
+            color: #0077b6;
+        }
+
+        .MuiDataGrid-cell {
+            color: #333;
+        }
+
+        .MuiDataGrid-row:hover {
+            background-color: #f0faff;
+        }
+    }
+
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #0077b6;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #005f92;
+    }
+`;
+
+const GridWrapper = styled.div`
+    width: 100%;
+    @media screen and (max-width: 768px) {
+        min-width: 700px;
+    }
+`;
 
 const StudentSubjectList = () => {
 
@@ -38,11 +95,11 @@ const StudentSubjectList = () => {
     },[])
 
     const columns = [
-        {field:"id",headerName:"Subject No.",flex:0.3},
-        {field:"code",headerName:"Subject Code",flex:1},
-        {field:"name",headerName:"Subject Name",flex:1},
-        {field:"year",headerName:"Year",flex:0.3},
-        {field:"total",headerName:"Total Hours",flex:0.4}
+        { field: "id", headerName: "Subject No.", flex: 0.1, minWidth: 70 },
+        { field: "code", headerName: "Subject Code", flex: 0.5, minWidth: 120 },
+        { field: "name", headerName: "Subject Name", flex: 1, minWidth: 200 },
+        { field: "year", headerName: "Year", flex: 0.2, minWidth: 70 },
+        { field: "total", headerName: "Total Hours", flex: 0.2, minWidth: 100 }
     ]
 
     /*
@@ -75,9 +132,13 @@ const StudentSubjectList = () => {
             (
              <>
              <StudentNavbar/>
-        <Container>
+        <Container style={{ overflowX: 'hidden' }}>
             <Header>SUBJECTS LIST</Header>
-            <DataGrid rows={rows} columns={columns} pageSize={5} disableSelectionOnClick autoHeight/>
+            <TableContainer>
+                <GridWrapper>
+                    <DataGrid rows={rows} columns={columns} pageSize={10} rowsPerPageOptions={[5, 10, 20]} disableSelectionOnClick autoHeight className="custom-datagrid" />
+                </GridWrapper>
+            </TableContainer>
         </Container>
              </>
             ):(

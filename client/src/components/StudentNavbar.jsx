@@ -84,7 +84,7 @@ a{
 
 @media screen and (max-width: 425px) {
     margin: 10px 0;
-    margin-left: 0;
+    margin-left: 36px;
     width: 100%;
 }
 `

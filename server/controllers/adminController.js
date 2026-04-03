@@ -68,7 +68,7 @@ export const addAdmin = async (req, res, next) => {
     }
 
     let hashedPassword;
-    hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
+    hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || "admin123", 10);
 
     var date = new Date();
     const joiningYear = date.getFullYear();
@@ -195,7 +195,7 @@ export const addStudent = async (req, res, next) => {
     }
 
     let hashedPassword;
-    hashedPassword = await bcrypt.hash(process.env.STUDENT_PASSWORD, 10);
+    hashedPassword = await bcrypt.hash(process.env.STUDENT_PASSWORD || "student123", 10);
     var date = new Date();
     const batch = date.getFullYear();
 
@@ -283,7 +283,7 @@ export const addFaculty = async (req, res, next) => {
     }
 
     let hashedPassword;
-    hashedPassword = await bcrypt.hash(process.env.FACULTY_PASSWORD, 10);
+    hashedPassword = await bcrypt.hash(process.env.FACULTY_PASSWORD || "faculty123", 10);
     var date = new Date();
     const joiningYear = date.getFullYear();
     var components = ["FAC", joiningYear, departmentHelper, helper];

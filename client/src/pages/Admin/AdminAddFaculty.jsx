@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {useAlert} from 'react-alert'
 import { useNavigate } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import AdminNavbar from '../../components/AdminNavbar'
 import styled from 'styled-components'
 
-import {Face,Class,MailOutline,Phone,PhoneIphone,SupervisorAccount,CalendarToday,} from '@material-ui/icons'
+import {Face,Class,MailOutline,Phone,SupervisorAccount} from '@material-ui/icons'
 import { adminAddFaculty } from '../../redux/actions/adminAction'
 
 const Container = styled.div`
@@ -140,7 +140,6 @@ const AdminAddFaculty = () => {
     const [department,setDepartment] = useState("");
     const [designation,setDesignation] = useState("");
     const [facultyMobileNumber, setFacultyMobileNumber] = useState('')
-    const [error, setError] = useState({})
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

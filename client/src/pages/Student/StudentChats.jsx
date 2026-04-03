@@ -10,7 +10,8 @@ const Container = styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
-width:100vw;
+width:100%;
+box-sizing:border-box;
 `
 const Wrapper = styled.div` 
 width:100%;
@@ -30,6 +31,11 @@ transition: all 0.5s;
 margin: 2rem;
 text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.158);
+
+@media screen and (max-width: 426px) {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
 `
 
 const ChatContainer = styled.div` 
@@ -41,6 +47,10 @@ width:50%;
   cursor: pointer;
   margin-top: 10px;
   border-bottom: 1px solid #0077b6;
+
+@media screen and (max-width: 768px) {
+    width: 90%;
+}
 `
 
 const ChatButton = styled.button` 

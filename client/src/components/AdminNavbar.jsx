@@ -1,6 +1,6 @@
-import React, {useState,useEffect} from 'react'
+import {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch} from 'react-redux'
 
 import {PersonAdd,LibraryAdd, HowToReg,Person,ExitToApp,Group,LibraryBooks,Menu,Close} from '@material-ui/icons'
 import styled from 'styled-components'
@@ -102,17 +102,12 @@ const MenuLabel = styled.span`
 const AdminNavbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [name,setName] = useState("");
     const [open, setOpen] = useState(false);
 
     const logoutHandler = () => {
       dispatch(adminLogout());
       alert.success("Logged Out");
       navigate('/admin/login');
-    }
-
-    const home = () => {
-      navigate('/admin')
     }
 
     const AddStudent = () => {

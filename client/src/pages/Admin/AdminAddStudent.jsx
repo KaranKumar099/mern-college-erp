@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {useAlert} from 'react-alert'
@@ -6,7 +6,7 @@ import {useAlert} from 'react-alert'
 import AdminNavbar from '../../components/AdminNavbar'
 import styled from 'styled-components'
 
-import {Face,MailOutline,Class,Phone,PhoneIphone,SupervisorAccount,CalendarToday,} from '@material-ui/icons'
+import {Face,MailOutline,Class,Phone,PhoneIphone,SupervisorAccount,CalendarToday} from '@material-ui/icons'
 import {adminAddStudent} from '../../redux/actions/adminAction'
 
 const Container = styled.div`
@@ -147,7 +147,6 @@ const AdminAddStudent = () => {
     const [studentMobileNumber, setStudentMobileNumber] = useState('')
     const [fatherName, setFatherName] = useState('')
     const [fatherMobileNumber, setFatherMobileNumber] = useState('')
-    const [error, setError] = useState({})
 
     const formHandler = (e) => {
         e.preventDefault();

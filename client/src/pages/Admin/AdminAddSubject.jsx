@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {useAlert} from 'react-alert';
@@ -7,7 +7,7 @@ import AdminNavbar from '../../components/AdminNavbar'
 import styled from 'styled-components'
 import {adminAddSubject} from '../../redux/actions/adminAction'
 
-import {Class,Face,MailOutline,Phone,PhoneIphone,SupervisorAccount,CalendarToday,} from '@material-ui/icons'
+import {Class,MailOutline,Phone,SupervisorAccount,CalendarToday} from '@material-ui/icons'
 
 const Container = styled.div`
 width:100vw;
